@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>boardContentSaved</title>
+    <style>
+
+      .wrapBox
+      {
+        margin-top: 7%;
+      }
+
+      .textarea
+      {
+        width: 500px;
+        height: 200px;
+        border: 1px solid gray;
+      }
+
+      .commentTextarea
+      {
+        width: 500px;
+        height: 130px;
+        resize: none;
+        border: 1px solid gray;
+      }
+
+      .inputBox
+      {
+        width: 500px;
+        height: 20px;
+        border: 1px solid gray;
+      }
+
+      .registerButton
+      {
+        width: 150px;
+      }
+
+    </style>
+</head>
+<body>
+<form action="/boardList" accept-charset="UTF-8">
+    <div class="wrapBox" align="center">
+        <div>
+            <h2>자유 게시판</h2>
+        </div>
+        <!-- 제목 영역 -->
+        <div class="inputBox">
+            <tbody>
+            <td th:text="${loginRequest.title}"></td>
+            </tbody>
+        </div><br/>
+        <!-- 게시글 영역 -->
+        <div class="textarea">
+            <tbody>
+            <td th:text="${loginRequest.content}"></td>
+            </tbody>
+        </div><br/>
+        <!-- 수정 버튼 -->
+        <div>
+            <input class="registerButton" type="button"  name="registerButton" value="수정"/>
+        </div><br/>
+        <!-- 댓글 영역 -->
+        <div>
+            <textarea class="commentTextarea" placeholder="댓글을 작성하세요." name="comment"></textarea>
+        </div><br/>
+        <!-- 댓글 등록 버튼 -->
+        <div>
+            <input class="registerButton" type="button" name="commentButton" value="댓글 등록"/>
+        </div>
+    </div>
+<!--</form>-->
+</body>
+</html>

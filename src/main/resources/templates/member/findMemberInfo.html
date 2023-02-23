@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>findMemberInfo</title>
+    <style>
+        .wrapBox
+        {
+            margin-top: 8%;
+        }
+
+        .preInfoBox
+        {
+            padding: 5%;
+        }
+
+        .infoBox
+        {
+            padding: 5px;
+            margin: 8px;
+            width: 238px;
+            height: 30px;
+            border: 1px solid gray;
+            border-radius: 5px 5px 5px 5px;
+        }
+
+        .deleteButton
+        {
+            padding: 10px;
+            margin: 10px;
+            width: 250px;
+            height: 50px;
+            border-radius: 5px 5px 5px 5px;
+            background-color: #5882FA;
+            border: none;
+            cursor: pointer;
+        }
+
+        .updateButton
+        {
+            padding: 10px;
+            margin: 10px;
+            width: 250px;
+            height: 50px;
+            border-radius: 5px 5px 5px 5px;
+            background-color: #E6E6E6;
+            border: none;
+            cursor: pointer;
+        }
+
+        a
+        {
+            text-decoration-line: none;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapBox" align="center">
+<h3>내 정보 페이지</h3>
+<table>
+  <tbody>
+    <tr>
+     <th class="preInfoBox">아이디 </th>
+    <tr>
+     <td>
+     <input type="text" class="infoBox" th:value="${info.id}"/>
+     </td>
+    </tr>
+    <tr>
+     <th class="preInfoBox">이름 </th>
+    </tr>
+    <tr>
+     <td>
+     <input type="text" class="infoBox" th:value="${info.name}"/>
+     </td>
+    </tr>
+    <tr>
+     <th class="preInfoBox">연락처 </th>
+    </tr>
+    <tr>
+     <td>
+     <input type="text" class="infoBox" th:value="${info.phoneNumber}"/>
+     </td>
+    </tr>
+  </tbody>
+</table>
+    <br/><a href="#"><input class="updateButton" type="submit" value="프로필 수정"/></a>
+    <br/><a href="#"><input class="deleteButton" type="submit" value="회원 탈퇴"/></a>
+</div>
+</body>
+</html>

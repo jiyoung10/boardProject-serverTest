@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>findMemberPwForm</title>
+  <style>
+        .wrapBox
+        {
+            margin-top: 8%;
+        }
+
+        .inputBox
+        {
+            padding: 5px;
+            margin: 8px;
+            width: 238px;
+            height: 30px;
+        }
+
+        .findButton
+        {
+            padding: 10px;
+            margin: 10px;
+            width: 250px;
+            height: 50px;
+        }
+
+        .findText
+        {
+            margin: 11px;
+            font-size: 12px;
+            color: black;
+        }
+
+        a
+        {
+            text-decoration-line: none;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+<form action="/findPw.do" method="post" accept-charset="UTF-8">
+  <div class="wrapBox" align="center">
+    <h3>비밀번호 찾기</h3>
+    <div><input class="inputBox" type="text" name="id" placeholder="아이디를 입력하시오."/></div>
+    <div><input class="inputBox" type="text" name="phoneNumber" placeholder="-를 제외한 연락처를 입력하시오."/></div>
+    <div><input class="findButton" type="submit" value="비밀번호 찾기"/></div>
+  </div>
+</form>
+</body>
+</html>

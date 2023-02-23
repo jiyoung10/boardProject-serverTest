@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .wrapBox
+        {
+            margin-top: 8%;
+        }
+
+        .inputBox
+        {
+            padding: 5px;
+            margin: 8px;
+            width: 238px;
+            height: 30px;
+            border: 1px solid gray;
+            border-radius: 5px 5px 5px 5px;
+        }
+
+        .joinButton
+        {
+            padding: 10px;
+            margin: 10px;
+            width: 250px;
+            height: 50px;
+            border-radius: 5px 5px 5px 5px;
+            background-color: #5882FA;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+    <title>join.do</title>
+</head>
+<body>
+<form action="/join.do" method="post" accept-charset="UTF-8">
+<div class="wrapBox" align="center">
+<h2>회원가입 페이지</h2>
+<div>
+    <h4>아이디</h4>
+    <input class="inputBox" type="text" name="id"/>
+</div>
+<div>
+  <h4>비밀번호</h4>
+  <input class="inputBox" type="text" name="pw"/>
+</div>
+<!--<div>-->
+<!--  <h4>비밀번호 재확인</h4>-->
+<!--  <input class="inputBox" type="text" name="pwCheck"/>-->
+<!--</div>-->
+<div>
+  <h4>이름</h4>
+  <input class="inputBox" type="text" name="name"/>
+</div>
+<div>
+  <h4>연락처</h4>
+  <input class="inputBox" type="text" name="phoneNumber"/>
+</div><br/>
+<div>
+  <input class="joinButton" type="submit" value="가입하기" name="joinButton"/>
+</div>
+</div>
+</form>
+</body>
+</html>

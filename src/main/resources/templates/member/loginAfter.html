@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www/thymeleft.org">
+<head>
+<meta charset="UTF-8">
+  <style>
+        .wrapUserBox
+        {
+            margin: 10% auto;
+            padding: 50px;
+            width: 260px;
+            border: 1px solid gray;
+            border-radius: 5px 5px 5px 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logoutButton
+        {
+            width: 160px;
+            height: 30px;
+            font-size: 12px;
+            background-color: #5882FA;
+            border: none;
+            border-radius: 5px 5px 5px 5px;
+            cursor:pointer
+        }
+
+        .boardPageButton
+        {
+          width: 160px;
+          height: 30px;
+          font-size: 12px;
+          background-color: rgb(232,233,230);
+          border: none;
+          border-radius: 5px 5px 5px 5px;
+          cursor:pointer
+        }
+
+        .findText
+        {
+            font-size: 12px;
+            color: black;
+        }
+
+        a
+        {
+            text-decoration-line: none;
+            color: black;
+        }
+
+        .textStyle
+        {
+          text-decoration: underline;
+        }
+    </style>
+  <title>real main page</title>
+</head>
+<body>
+<div class="wrapUserBox">
+  <!-- 로그인 후 사용자 정보 영역 -->
+  <div class="findText">
+    <tbody>
+      <td th:text="${loginRequest.id}"></td>님
+    </tbody>
+    &nbsp;&nbsp;&nbsp;&nbsp;<a class="textStyle" href="/findMemberInfo.do">내 정보 보기</a><br/><br/>
+    <div>
+      <a href="/boardPage"><button class="boardPageButton" name="boardPageButton">글쓰기</button></a>
+    </div><br/>
+    <div>
+      <a href="/sessionDelete"><button class="logoutButton" name="logoutButton">로그아웃</button></a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
