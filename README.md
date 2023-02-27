@@ -7,5 +7,5 @@ This is boardProject using tools(Spring, JPA,,) and includes login, member regis
 # 구동중인 서버
 h2 localhost 서버
 
-#사용 기술 및 환경
+# 사용 기술 및 환경
 Spring boot, Gradle, h2, Java11
