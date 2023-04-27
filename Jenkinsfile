@@ -18,12 +18,11 @@ pipeline {
             agent any
 
             steps {
-                echo "Lets start Long Journey! ENV: ${ENV}"
                 echo 'Clonning Repository'
 
-                git url: 'https://github.com/jiyoung10/boardProject.git'
-                    branch: 'master'
-                    credentialsId: 'tokenForJenkins'
+                git url: 'https://github.com/jiyoung10/boardProject.git',
+                    branch: 'master',
+                    credentialsId: 'jenkins'
             }
 
             post {
@@ -39,6 +38,21 @@ pipeline {
                 cleanup {
                     echo 'after all other post conditions'
                 }
+            }
+        }
+
+        stage('github clone') {
+            steps {
+                checkout scmGit(
+                    branches: [[name: '*/master']],
+                    extensions:
+                    [submodule(parentCredentials: true,
+                        reference: '',
+                        trackingSubmodules: true)],
+                    userRemoteConfigs:
+                        [[credentialsId: 'tokenForJenkins',
+                            url: 'https://github.com/jiyoung10/boardProject']]
+                )
             }
         }
 
@@ -58,12 +72,6 @@ pipeline {
             }
         }
 
-        stage('Docker push image') {
-            steps {
-                withCredentials({})
-            }
-        }
-
         // aws s3에 파일 업로드
         stage('Deploy Frontend') {
             steps {
@@ -75,23 +83,23 @@ pipeline {
                     '''
                 }
             }
-        } // stage Deploy Frontend
 
-        post {
-            success {
-                echo 'Successfully Cloned Repository'
+            post {
+                success {
+                    echo 'Successfully Cloned Repository'
 
-                mail to: 'zhsclqzlffj2@gmail.com',
-                     subject: "Deploy Frontend Success",
-                     body: "Successfully deployed frontend!"
-            }
-            failure {
-                echo 'I failed :('
+                    mail to: 'zhsclqzlffj2@gmail.com',
+                         subject: "Deploy Frontend Success",
+                         body: "Successfully deployed frontend!"
+                }
+                failure {
+                    echo 'I failed :('
 
-                mail to: 'zhsclqzlffj2@gmail.com',
-                     subject: "Filed Pipline",
-                     body: "Something is wrong with deploy frontend!"
+                    mail to: 'zhsclqzlffj2@gmail.com',
+                         subject: "Filed Pipline",
+                         body: "Something is wrong with deploy frontend!"
 
+                }
             }
         }
     }
