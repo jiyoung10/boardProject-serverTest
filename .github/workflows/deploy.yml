@@ -27,8 +27,10 @@ jobs:
         run: ./gradlew clean bootJar
 
       - name: Run EC2 instance
+        env:
+          PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
         run: |
-          echo "PRIVATE_KEY" > EC2-KEY-PAIR.pem
+          echo "$PRIVATE_KEY" > EC2-KEY-PAIR.pem
           chmod 600 EC2-KEY-PAIR.pem
           ssh -o StrictHostKeyChecking=no -i "EC2-KEY-PAIR.pem" ubuntu@ec2-43-201-9-47.ap-northeast-2.compute.amazonaws.com
 
