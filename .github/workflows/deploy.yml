@@ -1,17 +1,13 @@
-name: CI-CD
+name: Deploy to EC2
 
 on:
   push:
-    branches:
-      - master
-      
-env:
-  S3_BUCKET_NAME: s3-ec2-server-test
-  CODE_DEPLOY_APPLICATION_NAME: CODE-DEPLOY-SAMPLE-TEST
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: CODE-DEPLOY-GROUP
-  
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,39 +15,23 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up JDK 11
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
-          java-version: 11
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-        shell: bash
+          java-version: '11'
+          distribution: 'adopt'
 
       - name: Build with Gradle
-        run: ./gradlew clean build
-        shell: bash
+        run: ./gradlew clean bootJar
 
-      - name: Make zip file
-        run: zip -r ./$GITHUB_SHA .
-        shell: bash
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS-ACCESS-KEY-ID }}
-          aws-secret-access-key: ${{ secrets.AWS-SECRET-ACCESS-KEY }}
-          aws-region: ${{ secrets.AWS-REGION }}
-
-      - name: Upload to S3
-        run: aws s3 CD --region ap-northeast-2 ./$GITHUB_SHA s3://S3_BUCKET_NAME/$GITHUB_SHA.zip 
-
-      - name: Code Deploy
+      - name: Transfer JAR to EC2 instance
         run: |
-          aws deploy create-deployment \
-          --deployment-config-name CodeDeployDefault.AllAtOnce \
-          --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
-          --deployemnt-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
-          --s3-location bucket=S3_BUCKET_NAME,BuildleType=zip,Key=$GITHUB_SHA.zip
+          echo "PRIVATE_KEY" > EC2-KEY-PAIR.pem
+          chmod 600 EC2-KEY-PAIR.pem
+          scp -i “EC2-KEY-PAIR.pem” build/libs/OllethBoardProject-0.0.1-SNAPSHOT.jar ubuntu@ec2-43-200-177-149.ap-northeast-2.compute.amazonaws.com:~/OllethBoardProject-0.0.1-SNAPSHOT.jar
+          rm -f private_key.pem
 
-      
-      
+      - name: Run the JAR on the EC2 instance
+        run: |
+          echo "PRIVATE_KEY" > EC2-KEY-PAIR.pem
+          chmod 600 EC2-KEY-PAIR.pem
+          ssh -i “EC2-KEY-PAIR.pem” ubuntu@ec2-43-200-177-149.ap-northeast2.compute.amazonaws.com "sudo java -jar OllethBoardProject-0.0.1-SNAPSHOT.jar"
