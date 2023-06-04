@@ -34,7 +34,6 @@ jobs:
       - name: Build with Gradle
         run: |
           echo "$(ls)"
-          cd boardProject
           ./gradlew clean bootJar
           
       - name: Run the JAR on the EC2 instance
