@@ -19,6 +19,9 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
+          
+      - name: Set executable permissions on Gradle Wrapper
+        run: chmod +x ./gradlew
 
       - name: Build with Gradle
         run: ./gradlew build bootJar
