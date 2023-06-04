@@ -26,16 +26,17 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean bootJar
 
-      - name: Run EC2 instance
+      - name: Transfer JAR to the EC2 instance
         env:
           PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
         run: |
           echo "$PRIVATE_KEY" > EC2-KEY-PAIR.pem
-          chmod 600 EC2-KEY-PAIR.pem
-          ssh -o StrictHostKeyChecking=no -i "EC2-KEY-PAIR.pem" ubuntu@ec2-43-201-9-47.ap-northeast-2.compute.amazonaws.com
+          chmod 600 EC2-KEY-_PAIR.pem
+          scp -o StrictHostKeyChecking=no -i "EC2-KEY-PAIR.pem" boardProject/build/libs/spring.test-0.0.1-SNAPSHOT.jar ubuntu@ec2-43-2019-47.ap-northeast-2.compute.amazonaws.com:/boardProject/build/libs/
 
       - name: Run the JAR on the EC2 instance
         run: |
           echo "$(ls)"
-          find boardProject/build/libs -name "spring.test-0.0.1-SNAPSHOT.jar" -exec sudo java -jar {} \;
-          rm /boardProject/build/libs/spring.test-0.0.1-SNAPSHOT.jar
+          echo "$PRIVATE_KEY" > EC2-KEY-PAIR.pem
+          chmod 600 EC2-KEY-PAIR.pem
+          ssh -o StrictHostKeyChecking=no -i "EC2-KEY-PAIR.pem" ubuntu@ec2-43-201-9-47.ap-northeast-2.compute.amazonaws.com "find /boardProject/build/libs -name 'spring.test-0.0.1-SNAPSHOT.jar' -exec sudo java -jar {} \;"
