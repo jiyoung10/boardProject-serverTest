@@ -26,15 +26,14 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean bootJar
 
-      - name: Transfer JAR to EC2 instance
+      - name: Run EC2 instance
         run: |
           echo "PRIVATE_KEY" > EC2-KEY-PAIR.pem
           chmod 400 EC2-KEY-PAIR.pem
-          scp -i “EC2-KEY-PAIR.pem” build/libs/OllethBoardProject-0.0.1-SNAPSHOT.jar ubuntu@ec2-43-200-177-149.ap-northeast-2.compute.amazonaws.com:~/OllethBoardProject-0.0.1-SNAPSHOT.jar
-          rm -f private_key.pem
+          ssh -i "EC2-KEY-PAIR.pem" ubuntu@ec2-43-201-9-47.ap-northeast-2.compute.amazonaws.com
 
       - name: Run the JAR on the EC2 instance
         run: |
-          echo "PRIVATE_KEY" > EC2-KEY-PAIR.pem
-          chmod 400 EC2-KEY-PAIR.pem
-          ssh -i “EC2-KEY-PAIR.pem” ubuntu@ec2-43-200-177-149.ap-northeast2.compute.amazonaws.com "sudo java -jar OllethBoardProject-0.0.1-SNAPSHOT.jar"
+          cd /home/ubuntu
+          mv /home/ubuntu/boardProject/build/spring.test-0.0.1-SNAPSHOT.jar /home/ubuntu/
+          sudo java -jar spring.test-0.0.1-SNAPSHOT.jar
