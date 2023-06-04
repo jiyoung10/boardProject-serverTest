@@ -29,7 +29,7 @@ jobs:
       - name: Run EC2 instance
         run: |
           echo "PRIVATE_KEY" > EC2-KEY-PAIR.pem
-          chmod 400 EC2-KEY-PAIR.pem
+          chmod 600 EC2-KEY-PAIR.pem
           ssh -o StrictHostKeyChecking=no -i "EC2-KEY-PAIR.pem" ubuntu@ec2-43-201-9-47.ap-northeast-2.compute.amazonaws.com
 
       - name: Run the JAR on the EC2 instance
