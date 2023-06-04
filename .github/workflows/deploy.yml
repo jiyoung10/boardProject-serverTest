@@ -21,7 +21,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Build with Gradle
-        run: ./gradlew clean bootJar
+        run: ./gradlew build bootJar
 
       - name: Transfer JAR to EC2 instance
         run: |
