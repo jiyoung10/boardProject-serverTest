@@ -37,7 +37,5 @@ jobs:
       - name: Run the JAR on the EC2 instance
         run: |
           echo "$(ls)"
-          cd boardProject/build
-          mv /boardProject/build/spring.test-0.0.1-SNAPSHOT.jar /home/ubuntu/
-          sudo java -jar spring.test-0.0.1-SNAPSHOT.jar
-          rm /boardProject/build/spring.test-0.0.1-SNAPSHOT.jar
+          find boardProject/build/libs -name "spring.test-0.0.1-SNAPSHOT.jar" -exec sudo java -jar {} \;
+          rm /boardProject/build/libs/spring.test-0.0.1-SNAPSHOT.jar
