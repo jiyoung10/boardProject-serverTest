@@ -39,5 +39,5 @@ jobs:
       - name: Run the JAR on the EC2 instance
         run: |
           echo "$(ls)"
-          find /build/libs -name 'spring.test-0.0.1-SNAPSHOT.jar' -exec sudo java -jar {} \;
+          find build/libs -name 'spring.test-0.0.1-SNAPSHOT.jar' -exec sudo java -jar {} \;
 
