@@ -2,9 +2,9 @@ name: Deploy to EC2
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build-and-deploy:
@@ -26,10 +26,7 @@ jobs:
         run: |
           echo "$PRIVATE_KEY" > EC2-KEY-PAIR.pem
           chmod 600 EC2-KEY-PAIR.pem
-          ssh -o StrictHostKeyChecking=no -i "EC2-KEY-PAIR.pem" ubuntu@ec2-43-201-9-47.ap-northeast-2.compute.amazonaws.com
-
-      - name: Start Redis
-        run: sudo service redis-server start
+          ssh -o StrictHostKeyChecking=no -i "EC2-KEY-PAIR.pem" ubuntu@ec2-52-78-181-184.ap-northeast-2.compute.amazonaws.com
 
       - name: Set executable permissions on Gradle Wrapper
         run: chmod +x ./gradlew
